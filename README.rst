@@ -181,6 +181,18 @@ nested ``Options`` class in ``MarkdownConverter`` subclasses.
 Converting BeautifulSoup objects
 ================================
 
+``convert_soup`` accepts a BeautifulSoup document or a Tag subtree. For Tag
+roots, ``strip_document`` applies to the completed Markdown after the tag's
+normal conversion. Use ``strip_document=None`` to retain boundary newlines.
+Excluding ``[document]`` through ``strip`` or ``convert``, or resolving its
+conversion function to ``None``, disables this final formatting.
+Tag roots use the built-in ``strip_document`` policy. This final formatting
+step does not invoke the resolved document conversion function; normal tag
+dispatch and the original tree are retained. The document-function lookup is
+cached, including ``None``, so Tag conversion can affect later document
+resolution on the same converter. ``strip_document=None`` retains boundary
+text but still performs this lookup.
+
 .. code:: python
 
     from markdownify import MarkdownConverter

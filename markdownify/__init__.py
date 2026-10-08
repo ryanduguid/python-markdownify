@@ -79,6 +79,20 @@ def strip_pre(text):
     return text
 
 
+def _strip_document(text, strip_mode):
+    """Remove only the selected document separation newlines."""
+    if strip_mode == LSTRIP:
+        return text.lstrip('\n')
+    elif strip_mode == RSTRIP:
+        return text.rstrip('\n')
+    elif strip_mode == STRIP:
+        return text.strip('\n')
+    elif strip_mode is None:
+        return text
+    else:
+        raise ValueError('Invalid value for strip_document: %s' % strip_mode)
+
+
 def chomp(text):
     """
     If the text in an inline tag like b, a, or em contains a leading or trailing
@@ -223,7 +237,12 @@ class MarkdownConverter(object):
         return self.convert_soup(soup)
 
     def convert_soup(self, soup):
-        return self.process_tag(soup, parent_tags=set())
+        text = self.process_tag(soup, parent_tags=set())
+        if (isinstance(soup, Tag)
+                and soup.name.lower() != '[document]'
+                and self.get_conv_fn_cached('[document]') is not None):
+            text = _strip_document(text, self.options['strip_document'])
+        return text
 
     def process_element(self, node, parent_tags=None):
         if isinstance(node, NavigableString):
@@ -327,18 +346,7 @@ class MarkdownConverter(object):
 
     def convert__document_(self, el, text, parent_tags):
         """Final document-level formatting for BeautifulSoup object (node.name == "[document]")"""
-        if self.options['strip_document'] == LSTRIP:
-            text = text.lstrip('\n')  # remove leading separation newlines
-        elif self.options['strip_document'] == RSTRIP:
-            text = text.rstrip('\n')  # remove trailing separation newlines
-        elif self.options['strip_document'] == STRIP:
-            text = text.strip('\n')  # remove leading and trailing separation newlines
-        elif self.options['strip_document'] is None:
-            pass  # leave leading and trailing separation newlines as-is
-        else:
-            raise ValueError('Invalid value for strip_document: %s' % self.options['strip_document'])
-
-        return text
+        return _strip_document(text, self.options['strip_document'])
 
     def process_text(self, el, parent_tags=None):
         # For the top-level element, initialize the parent context with an empty set.
