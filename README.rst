@@ -1,18 +1,18 @@
 |build| |version| |license| |downloads|
 
-.. |build| image:: https://img.shields.io/github/actions/workflow/status/matthewwithanm/python-markdownify/python-app.yml?branch=develop
+.. |build| image:: https://img.shields.io/github/actions/workflow/status/matthewwithanm/python-markdownify/python-app.yml?branch=develop&style=flat&labelColor=000000
     :alt: GitHub Workflow Status
     :target: https://github.com/matthewwithanm/python-markdownify/actions/workflows/python-app.yml?query=workflow%3A%22Python+application%22
 
-.. |version| image:: https://img.shields.io/pypi/v/markdownify
+.. |version| image:: https://img.shields.io/pypi/v/markdownify?style=flat&labelColor=000000&color=66023C
     :alt: Pypi version
     :target: https://pypi.org/project/markdownify/
 
-.. |license| image:: https://img.shields.io/pypi/l/markdownify
+.. |license| image:: https://img.shields.io/pypi/l/markdownify?style=flat&labelColor=000000&color=66023C
     :alt: License
     :target: https://github.com/matthewwithanm/python-markdownify/blob/develop/LICENSE
 
-.. |downloads| image:: https://pepy.tech/badge/markdownify
+.. |downloads| image:: https://img.shields.io/badge/dynamic/xml?url=https%3A%2F%2Fpepy.tech%2Fbadge%2Fmarkdownify&query=normalize-space%28%28%2F%2F%2A%5Blocal-name%28%29%3D%27text%27%5D%29%5Blast%28%29%5D%29&label=downloads&style=flat&labelColor=000000&color=66023C
     :alt: Pypi Downloads
     :target: https://pepy.tech/project/markdownify
 
